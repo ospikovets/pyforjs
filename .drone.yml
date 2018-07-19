@@ -1,0 +1,25 @@
+pipeline:
+  test:
+    group: test
+    image: python:3.6
+    commands:
+      - python setup.py test
+
+  lint:
+    group: test
+    image: python:3.6
+    commands:
+      - pip install flake8
+      - flake8 .
+
+  isort:
+    group: test
+    image: python:3.6
+    commands:
+      - pip install isort
+      - isort -rc -c .
+
+  publish:
+    image: python:3.6
+    commands:
+      - python setup.py register sdist upload
